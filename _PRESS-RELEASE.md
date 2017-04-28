@@ -18,27 +18,29 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Positive Visual Feedback Generator. 
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-
+  The product is for anyone who wants immediate positive feedback, preferably in pictures, for how they are feeling. The benefit is that users can get immediate feedback for their feelings.
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-
+  The product is a click of a button away from a gallery of pictures that will keep you on your feet. Feeling sad? Be ready to get a gallery of cute puppies to uplift your day. Feeling happy? Can't be complacent, be ready to get a gallery of motivation pictures to keep you progressing. 
 ## Problem ##
   > Describe the problem your product solves.
-
+  Solves the problem of not having immediate access to something that would make you feel better. 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
-
+  My product will provide moods that the user can click on and that will be enough to generate the pictures that they will need.
 ## Quote from You ##
   > A quote from a spokesperson in your company.
-
+  Feeling down? You need something immediate and reliable? Use the positive visual feedback generator.
 ## How to Get Started ##
   > Describe how easy it is to get started.
-
+  Input name and click on mood.
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-
+  It's better than anything I've tried before. Not even my siginificant other or therapist can give me such immediate quality feedback.
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  
