@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import { Form, Radio, Textarea } from 'react-form';
 import NameInput from './components/NameInput.jsx';
 import Gallery from './components/Gallery.jsx';
+import MoodClick from './components/MoodClick.jsx';
+import RadioButton from 'react-radio-buttons';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +13,7 @@ class App extends React.Component {
     this.state = { 
       items: []
     }
-    this.onChange = this.onChange.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm() {
@@ -37,14 +39,7 @@ class App extends React.Component {
     console.log(this.state.items)
     return (<div>
       <h1>What is your mood right now?</h1>
-      <form onSubmit={submitForm}>
-
-        <div>
-          <h2>Full Name</h2>
-          <Text field='name' placeholder='Your name'/>
-        </div>
-        
-      </form>
+      <MoodClick/>
       <Gallery data={this.state.items}/>
     </div>)
   }
@@ -52,6 +47,10 @@ class App extends React.Component {
 
 ReactDOM.render(<App/>, document.getElementById('app'));
       
+          // {<div>
+          //           <h2>Full Name</h2>
+          //           <Text field='name' placeholder='Your name'/>
+          //   </div>}
       // {<RadioGroup onChange={ this.onChange } horizontal>
       //   <RadioButton value="happy">
       //   Happy
