@@ -11,11 +11,11 @@ class App extends React.Component {
     this.state = { 
       items: []
     }
-    this.onChange = () => {
-    // console.log('do something');
-    //send different items into the array
-      // this.setState({items});
-   };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange() {
+    console.log('someone clicked a different radio button')
   }
 
   componentDidMount() {
