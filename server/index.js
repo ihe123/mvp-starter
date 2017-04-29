@@ -20,17 +20,18 @@ app.post('/items', function(req, res) {
   var options = {
     method: 'GET',
     url: 'https://api.imgur.com/3/gallery/r/aww',
-    headers: { Authorization: 'Bearer fdda82090fadf0a66bd66776d90f1d7e98a75104' }
+    headers: { Authorization: 'Bearer 0844cae63a6db6e4e3513329da037cbb94f42a52' }
   }
   var callback = function(error, response, body) {
     if(error){
       throw error;
     } else {
-      res.send(body);
+      var info = JSON.parse(body);
+      var data = info.data;
+      res.send(data);
     }
   }
   request(options, callback);
-
 }); 
 
 app.get('/items', function (req, res) {
