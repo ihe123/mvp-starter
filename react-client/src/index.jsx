@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+// import List from './components/List.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class App extends React.Component {
 
   componentDidMount() {
     $.ajax({
+      type: "POST",
       url: '/items', 
       success: (data) => {
         this.setState({
@@ -20,17 +21,19 @@ class App extends React.Component {
         })
       },
       error: (err) => {
-        console.log('err', err);
+        console.log('errrrrrrrrr', err);
       }
     });
   }
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
+      <h1>What is your mood today?</h1>
+      <form><input type="radio" value="happy"></input></form>
+      <form><input type="radio" value="happy"></input></form>
     </div>)
   }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+      
