@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
+import { Form, Radio, Textarea } from 'react-form';
 import NameInput from './components/NameInput.jsx';
 import Gallery from './components/Gallery.jsx';
 
@@ -14,8 +14,8 @@ class App extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  onChange() {
-    console.log('someone clicked a different radio button')
+  submitForm() {
+    console.log('someone submitted....')
   }
 
   componentDidMount() {
@@ -37,15 +37,14 @@ class App extends React.Component {
     console.log(this.state.items)
     return (<div>
       <h1>What is your mood right now?</h1>
-      <RadioGroup onChange={ this.onChange } horizontal>
-        <RadioButton value="happy">
-        Happy
-        </RadioButton>
-         <RadioButton value="happy">
-        Sad
-        </RadioButton>
-      </RadioGroup>
-      <NameInput/>
+      <form onSubmit={submitForm}>
+
+        <div>
+          <h2>Full Name</h2>
+          <Text field='name' placeholder='Your name'/>
+        </div>
+        
+      </form>
       <Gallery data={this.state.items}/>
     </div>)
   }
@@ -53,3 +52,12 @@ class App extends React.Component {
 
 ReactDOM.render(<App/>, document.getElementById('app'));
       
+      // {<RadioGroup onChange={ this.onChange } horizontal>
+      //   <RadioButton value="happy">
+      //   Happy
+      //   </RadioButton>
+      //    <RadioButton value="happy">
+      //   Sad
+      //   </RadioButton>
+      // </RadioGroup>
+      // <NameInput/>}
