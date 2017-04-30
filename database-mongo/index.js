@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
+mongoose.Promise = global.Promise;
 
 var db = mongoose.connection;
 
@@ -12,8 +13,8 @@ db.once('open', function() {
 });
 
 var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+  name: String,
+  mood: String
 });
 
 var Item = mongoose.model('Item', itemSchema);
@@ -28,4 +29,23 @@ var selectAll = function(callback) {
   });
 };
 
+var insert = function(data, callback) {
+  var item = new Item ({name: data.name, mood: data.mood});
+
+  item.save(function(err, data) {
+   if(err) {
+    callback(err, null);
+   } else {
+    callback(null, item);
+   }
+  });
+}
+
+module.exports.insert = insert;
 module.exports.selectAll = selectAll;
+module.exports.edward = function(){console.log('loggggggggg')};
+// var insert = function(){
+
+// }
+
+// module.exports.insert = insert;

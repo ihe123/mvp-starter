@@ -16,22 +16,59 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.post('/submitted', function(req, res) {
+  //need to handle posting of mood and full name to put into the database
+  
+  var newUser = {};
+  console.log('nameeeeeeee', req.body.name)
+  newUser.name = req.body.name;
+  newUser.mood = req.body.mood;
+    
+  items.insert(newUser, function(err, entry) {
+    if(err) {
+      throw err;
+    } else {
+      console.log('docs', entry);
+    }
+  });
+
+  items.selectAll(function(err, data){
+    if(err) {
+      throw err;
+    } else {
+      console.log('herreeeeeeee', data);
+    }
+  })
+  console.log(Object.keys(items))
+  console.log()
+  res.send();
+});
+
 app.post('/items', function(req, res) {
-  var options = {
+  
+  var optionsAD = {
     method: 'GET',
     url: 'https://api.imgur.com/3/gallery/r/aww',
-    headers: { Authorization: 'Bearer 0844cae63a6db6e4e3513329da037cbb94f42a52' }
-  }
+    headers: { Authorization: 'Bearer 8809a36d8f045e417530f370e18227a9b9e69aa3' }
+    }
+  
+  var options = {
+    method: 'GET',
+    url: 'https://api.imgur.com/3/gallery/r/motivated',
+    headers: { Authorization: 'Bearer 8809a36d8f045e417530f370e18227a9b9e69aa3' }
+    }
+
   var callback = function(error, response, body) {
     if(error){
+      console.log('erroorrrr',error)
       throw error;
     } else {
+      console.log('bodyyyy', body)
       var info = JSON.parse(body);
       var data = info.data;
       res.send(data);
     }
   }
-  request(options, callback);
 }); 
 
 app.get('/items', function (req, res) {
@@ -48,4 +85,4 @@ app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
 
-  //   body: '{ "name": "imgur", "strategy": "oauth2", "options": { "client_id", "b5172783192ea5c", "client_secret": "0d80da649b19945b265b250a3aeb9ff2a2d0ee8c", "authorizationURL": "https://api.imgur.com/oauth2/authorize", "tokenURL": "https://api.imgur.com/oauth2/token", "scripts": { "fetchUserProfile": "function(accessToken, ctx, cb) { request.get(\'https://api.imgur.com/3/account/me\', { headers: { \'Authorization\': \'Bearer \' + accessToken } }, function(e, r, b) { if (e) return cb(e); if (r.statusCode !== 200 ) return cb(new Error(\'StatusCode: \' + r.statusCode)); var profile = JSON.parse(b).data; profile.user_id = profile.id; cb(null, profile); });}' 
+
