@@ -14,6 +14,7 @@ class App extends React.Component {
     this.state = { 
       name:'',
       mood:'',
+      subreddit: '',
       items: []
     }
     this.submitForm = this.submitForm.bind(this);
@@ -24,27 +25,22 @@ class App extends React.Component {
   submitForm() {
     console.log("this form has been clicked!!!!");
     var obj = {
+      name: this.state.name,
       mood: this.state.mood,
-      name: this.state.name
+      subreddit: this.state.subreddit
     };
 
     //re-render the page
-    if (this.state.mood === 'happy'){
-      this.setState({
-        items: motivData.data
-      })
-    } else {
-        this.setState({
-         items: cuteData.data
-        })
-    }
 
     $.ajax({
       type: "POST",
-      url: '/submitted',
+      url: '/items',
       data: obj,
       success: (data) => {
-        console.log("sucesssss")
+        console.log('should be expecting data with either buttons', data)
+        this.setState({
+          items: data
+        })
       }
     })
   }
@@ -52,39 +48,35 @@ class App extends React.Component {
   radioSubmit(e) {
     console.log('state mood', this.state.mood)
     this.state.mood = e.target.value; 
+    if (this.state.mood === 'happy') {
+      this.state.subreddit = 'aww'
+    } else if (this.state.mood === 'sad') {
+      this.state.subreddit = 'GetMotivated'
+    }  
     console.log('mooooood', this.state.mood);
   }
 
   changeName(e) {
-
     console.log('changing the name');
     this.state.name = e.target.value;
     console.log('nameeee', this.state.name);
   }
 
   componentDidMount() {
-    console.log(cuteData.data);
-    this.setState({
-      items: cuteData.data
-    })
-    // $.ajax({
-    //   type: "POST",
-    //   url: '/items', 
-    //   success: (data) => {
-    //       console.log('sucessssss', data)
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('errrrrrrrrr', err);
-    //   }
-    // });
+    $.ajax({
+      type: "POST",
+      url: '/items', 
+      success: (data) => {
+          console.log('sucessssss', data)
+        this.setState({
+          items: data
+        })
+      },
+      error: (err) => {
+        console.log('errrrrrrrrr', err);
+      }
+    });
   }
-
-  
-
-
    
   render (props) {
     return (<div>

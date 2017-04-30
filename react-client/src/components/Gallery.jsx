@@ -2,9 +2,7 @@ import React from 'react';
 
 const Gallery = (props) => (
   <div>
-    {props.data.map((picture, index)=>(<img key={index} src={picture.link} />))}
-    {console.log('dataaaaaa', props.data)}
-    
+      {props.data.slice(0, 25).map((picture, index)=>(<img key={index} width='150' src={picture.link} />))}
   </div>
 )
 

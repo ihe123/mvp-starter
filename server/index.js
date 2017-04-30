@@ -23,7 +23,8 @@ app.post('/submitted', function(req, res) {
   console.log('nameeeeeeee', req.body.name)
   newUser.name = req.body.name;
   newUser.mood = req.body.mood;
-    
+
+
   items.insert(newUser, function(err, entry) {
     if(err) {
       throw err;
@@ -40,13 +41,25 @@ app.post('/submitted', function(req, res) {
     }
   })
   console.log(Object.keys(items))
-  console.log()
   res.send();
 });
 
 app.post('/items', function(req, res) {
-  
-  var optionsAD = {
+
+  var newImgurUser = {};
+  newImgurUser.name = req.body.name;
+  newImgurUser.mood = req.body.mood;
+  newImgurUser.subreddit = req.body.subreddit;
+
+  items.insert(newImgurUser, function(err, etnry) {
+    if (err) {
+      throw err
+    } else {
+      console.log('entriesssss', entry)
+    }
+  }) 
+
+    var optionsAD = {
     method: 'GET',
     url: 'https://api.imgur.com/3/gallery/r/aww',
     headers: { Authorization: 'Bearer 8809a36d8f045e417530f370e18227a9b9e69aa3' }
@@ -54,7 +67,7 @@ app.post('/items', function(req, res) {
   
   var options = {
     method: 'GET',
-    url: 'https://api.imgur.com/3/gallery/r/motivated',
+    url: 'https://api.imgur.com/3/gallery/r/GetMotivated',
     headers: { Authorization: 'Bearer 8809a36d8f045e417530f370e18227a9b9e69aa3' }
     }
 
@@ -63,12 +76,20 @@ app.post('/items', function(req, res) {
       console.log('erroorrrr',error)
       throw error;
     } else {
-      console.log('bodyyyy', body)
       var info = JSON.parse(body);
       var data = info.data;
       res.send(data);
     }
   }
+
+  console.log("expect sad and happy", req.body)
+  if (req.body.mood === 'happy') {
+    request(options, callback);
+  } else if (req.body.mood === 'sad') {
+    request(optionsAD, callback);
+  }
+    request(optionsAD, callback);
+  
 }); 
 
 app.get('/items', function (req, res) {
