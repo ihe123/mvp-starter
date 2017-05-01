@@ -16,33 +16,33 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/submitted', function(req, res) {
-  //need to handle posting of mood and full name to put into the database
+// app.post('/submitted', function(req, res) {
+//   //need to handle posting of mood and full name to put into the database
   
-  var newUser = {};
-  console.log('nameeeeeeee', req.body.name)
-  newUser.name = req.body.name;
-  newUser.mood = req.body.mood;
+//   var newUser = {};
+//   console.log('nameeeeeeee', req.body.name)
+//   newUser.name = req.body.name;
+//   newUser.mood = req.body.mood;
 
 
-  items.insert(newUser, function(err, entry) {
-    if(err) {
-      throw err;
-    } else {
-      console.log('docs', entry);
-    }
-  });
+//   items.insert(newUser, function(err, entry) {
+//     if(err) {
+//       throw err;
+//     } else {
+//       console.log('docs', entry);
+//     }
+//   });
 
-  items.selectAll(function(err, data){
-    if(err) {
-      throw err;
-    } else {
-      console.log('herreeeeeeee', data);
-    }
-  })
-  console.log(Object.keys(items))
-  res.send();
-});
+//   items.selectAll(function(err, data){
+//     if(err) {
+//       throw err;
+//     } else {
+//       console.log('herreeeeeeee', data);
+//     }
+//   })
+//   console.log(Object.keys(items))
+//   res.send();
+// });
 
 app.post('/items', function(req, res) {
 
@@ -51,7 +51,7 @@ app.post('/items', function(req, res) {
   newImgurUser.mood = req.body.mood;
   newImgurUser.subreddit = req.body.subreddit;
 
-  items.insert(newImgurUser, function(err, etnry) {
+  items.insert(newImgurUser, function(err, entry) {
     if (err) {
       throw err
     } else {
@@ -88,7 +88,7 @@ app.post('/items', function(req, res) {
   } else if (req.body.mood === 'sad') {
     request(optionsAD, callback);
   }
-    request(optionsAD, callback);
+    // request(optionsAD, callback);
   
 }); 
 
@@ -100,6 +100,16 @@ app.get('/items', function (req, res) {
       res.json(data);
     }
   });
+});
+
+app.post('/grabHistory', function (req, res) {
+ 
+ items.Item.find({name: req.body.lookupName}, function(error, data) {
+  console.log('give me data from db', data);
+ })
+
+ console.log('grabbing history herreeeee and expecting lookup history obj', req.body)
+
 });
 
 app.listen(3000, function() {

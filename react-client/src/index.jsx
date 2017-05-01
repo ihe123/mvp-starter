@@ -6,6 +6,7 @@ import MoodClick from './components/MoodClick.jsx';
 import Name from './components/Name.jsx';
 import cuteData from './components/cuteData.jsx';
 import motivData from './components/motivData.jsx'
+import SearchHistory from './components/SearchHistory.jsx';
 
 
 class App extends React.Component {
@@ -15,22 +16,22 @@ class App extends React.Component {
       name:'',
       mood:'',
       subreddit: '',
-      items: []
+      items: [],
+      lookupName: ''
     }
     this.submitForm = this.submitForm.bind(this);
     this.changeName = this.changeName.bind(this);
     this.radioSubmit = this.radioSubmit.bind(this);
+    this.nameSearch = this.nameSearch.bind(this);
+    this.lookup = this.lookup.bind(this);
   }
 
   submitForm() {
-    console.log("this form has been clicked!!!!");
     var obj = {
       name: this.state.name,
       mood: this.state.mood,
       subreddit: this.state.subreddit
     };
-
-    //re-render the page
 
     $.ajax({
       type: "POST",
@@ -49,9 +50,9 @@ class App extends React.Component {
     console.log('state mood', this.state.mood)
     this.state.mood = e.target.value; 
     if (this.state.mood === 'happy') {
-      this.state.subreddit = 'aww'
+      this.state.subreddit = 'getMotivated'
     } else if (this.state.mood === 'sad') {
-      this.state.subreddit = 'GetMotivated'
+      this.state.subreddit = 'aww'
     }  
     console.log('mooooood', this.state.mood);
   }
@@ -77,12 +78,38 @@ class App extends React.Component {
       }
     });
   }
+
+  nameSearch(e) {
+    this.setState({
+      lookupName: e.target.value
+    })
+  }
+
+  lookup() {
+    var lookupObj = {
+      lookupName: this.state.lookupName
+    };
+
+    $.ajax({
+      type: 'POST',
+      url: '/grabHistory',
+      data: lookupObj,
+      success: (data) => {
+        console.log('dataaaaaaaaa from database', data)
+       console.log('success in grabbing history');
+      },
+      error: (error)=> {
+        console.log('error in grabbing data', error);
+      }
+    });
+  }
    
   render (props) {
     return (<div>
       <h1>What is your mood right now?</h1>
       <MoodClick radio={this.radioSubmit}/>
       <Name changeName={this.changeName} submit={this.submitForm}/>
+      <SearchHistory nameSearch={this.nameSearch} lookup={this.lookup}/>
       <Gallery data={this.state.items}/>
     </div>)
   }
