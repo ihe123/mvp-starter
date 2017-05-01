@@ -67,9 +67,23 @@ app.post('/items', function(req, res) {
   
   var options = {
     method: 'GET',
-    url: 'https://api.imgur.com/3/gallery/r/GetMotivated',
+    url: 'https://api.imgur.com/3/gallery/r/MotivationalPics',
     headers: { Authorization: 'Bearer 8809a36d8f045e417530f370e18227a9b9e69aa3' }
     }
+
+  var optionsTRESS = {
+    method: 'GET',
+    url: 'https://api.imgur.com/3/gallery/r/breathless',
+    headers: { Authorization: 'Bearer 8809a36d8f045e417530f370e18227a9b9e69aa3' }
+  }
+
+  var optionsBORED = {
+    method: 'GET',
+    url: 'https://api.imgur.com/3/gallery/r/dataisbeautiful',
+    headers: {
+      Authorization: 'Bearer 8809a36d8f045e417530f370e18227a9b9e69aa3'
+    }
+  }
 
   var callback = function(error, response, body) {
     if(error){
@@ -87,8 +101,12 @@ app.post('/items', function(req, res) {
     request(options, callback);
   } else if (req.body.mood === 'sad') {
     request(optionsAD, callback);
+  } else if (req.body.mood === 'stressed') {
+    request(optionsTRESS, callback)
+  } else if (req.body.mood === 'bored') {
+    request(optionsBORED, callback)
   }
-    // request(optionsAD, callback);
+    // request(optionsAD, callback);  
   
 }); 
 

@@ -52,11 +52,14 @@ class App extends React.Component {
     console.log('state mood', this.state.mood)
     this.state.mood = e.target.value; 
     if (this.state.mood === 'happy') {
-      this.state.subreddit = 'getMotivated'
+      this.state.subreddit = 'MotivationalPics'
     } else if (this.state.mood === 'sad') {
       this.state.subreddit = 'aww'
-    }  
-    console.log('mooooood', this.state.mood);
+    }  else if (this.state.mood === 'stressed') {
+      this.state.subreddit = 'breathless'
+    } else if (this.state.mood === 'bored') {
+      this.state.subreddit = 'dataisbeautiful'
+    }
   }
 
   changeName(e) {
@@ -109,7 +112,8 @@ class App extends React.Component {
    
   render (props) {
     return (<div>
-      <h1>What is your mood right now?</h1>
+      <h1>Visual Positive Feedback Generator</h1>
+      <h2>What is your mood right now?</h2>
       <MoodClick radio={this.radioSubmit}/>
       <Name changeName={this.changeName} submit={this.submitForm}/>
       <SearchHistory nameSearch={this.nameSearch} lookup={this.lookup}/>
