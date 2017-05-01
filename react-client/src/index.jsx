@@ -7,6 +7,7 @@ import Name from './components/Name.jsx';
 import cuteData from './components/cuteData.jsx';
 import motivData from './components/motivData.jsx'
 import SearchHistory from './components/SearchHistory.jsx';
+import UserHistory from './components/UserHistory.jsx';
 
 
 class App extends React.Component {
@@ -17,6 +18,7 @@ class App extends React.Component {
       mood:'',
       subreddit: '',
       items: [],
+      lookUpEntries: [],
       lookupName: ''
     }
     this.submitForm = this.submitForm.bind(this);
@@ -95,8 +97,9 @@ class App extends React.Component {
       url: '/grabHistory',
       data: lookupObj,
       success: (data) => {
-        console.log('dataaaaaaaaa from database', data)
-       console.log('success in grabbing history');
+        this.setState({
+          lookUpEntries: JSON.parse(data)
+        })
       },
       error: (error)=> {
         console.log('error in grabbing data', error);
@@ -110,6 +113,7 @@ class App extends React.Component {
       <MoodClick radio={this.radioSubmit}/>
       <Name changeName={this.changeName} submit={this.submitForm}/>
       <SearchHistory nameSearch={this.nameSearch} lookup={this.lookup}/>
+      <UserHistory displayHistory={this.state.lookUpEntries}/>
       <Gallery data={this.state.items}/>
     </div>)
   }

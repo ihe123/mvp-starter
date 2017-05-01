@@ -106,7 +106,9 @@ app.post('/grabHistory', function (req, res) {
  
  items.Item.find({name: req.body.lookupName}, function(error, data) {
   console.log('give me data from db', data);
+  res.send(JSON.stringify(data));
  })
+
 
  console.log('grabbing history herreeeee and expecting lookup history obj', req.body)
 
